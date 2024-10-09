@@ -1,0 +1,52 @@
+{
+  extends: ["config:base"],
+  dockerfile: {
+    enabled: true,
+  },
+  packageRules: [
+    {
+      matchDatasources: ["github-releases"],
+      matchPackageNames: [
+        "tofuutils/tenv",
+        "hashicorp/terraform",
+        "opentofu/opentofu",
+        "pulumi/pulumi",
+      ],
+      automerge: true,
+      automergeType: "branch",
+      platformAutomerge: true,
+    },
+    {
+      matchDatasources: ["repology"],
+      matchPackageNames: [
+        "alpine_3_20/ansible",
+        "alpine_3_20/aws-cli",
+        "alpine_3_20/bash",
+        "alpine_3_20/jq",
+        "alpine_3_20/git",
+        "alpine_3_20/python",
+        "alpine_3_20/py3-pip",
+        "alpine_3_20/shadow",
+        "alpine_3_20/doas",
+        "alpine_3_20/curl",
+        "alpine_3_20/tar",
+        "alpine_3_20/unzip",
+      ],
+      automerge: true,
+      automergeType: "branch",
+      platformAutomerge: true,
+      versioning: "loose",
+    },
+  ],
+  regexManagers: [
+    {
+      fileMatch: ["^Dockerfile$"],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\sENV .*?_VERSION=(?<currentValue>.*)\\s",
+        "ENV (?<depName>[A-Z_]+)_VERSION=(?<currentValue>.*)",
+      ],
+      versioningTemplate: "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}",
+      datasourceTemplate: "{{#if datasource}}{{datasource}}{{else}}github-releases{{/if}}",
+    },
+  ],
+}
