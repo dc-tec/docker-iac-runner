@@ -17,11 +17,11 @@ ENV AWS_CLI_VERSION=2.18.0-r0
 # renovate: datasource=repology depName=alpine_3_20/ansible versioning=loose
 ENV ANSIBLE_VERSION=10.5.0-r0
 # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
-ENV BASH_VERSION=5.27.37-r0
+ENV BASH_VERSION=5.2.26-r0
 # renovate: datasource=repology depName=alpine_3_20/jq versioning=loose
-ENV JQ_VERSION=1.7-1-r0
+ENV JQ_VERSION=1.7.1-r0
 # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
-ENV GIT_VERSION=2.46.2-r0
+ENV GIT_VERSION=2.45.2-r0
 # renovate: datasource=repology depName=alpine_3_20/python versioning=loose
 ENV PYTHON_VERSION=3.12.7-r0
 # renovate: datasource=repology depName=alpine_3_20/py3-pip versioning=loose
@@ -35,7 +35,7 @@ ENV CURL_VERSION=8.10.1-r0
 # renovate: datasource=repology depName=alpine_3_20/tar versioning=loose
 ENV TAR_VERSION=1.35-r2
 # renovate: datasource=repology depName=alpine_3_20/unzip versioning=loose
-ENV UNZIP_VERSION=6.0-r15
+ENV UNZIP_VERSION=6.0-r14
 
 # Install required packages
 RUN apk add --no-cache \
