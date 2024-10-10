@@ -20,8 +20,11 @@ jobs:
         load: true
         tags: devops-cicd-runner:test
 
+    - name: Install Container Structure Test
+      run: |
+        curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
+        chmod +x container-structure-test-linux-amd64
+        sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
+
     - name: Run Container Structure Test
-      uses: GoogleContainerTools/container-structure-test-action@v0.3.0
-      with:
-        image: devops-cicd-runner:test
-        config: tests/structure-test.yaml
+      run: container-structure-test test --image devops-cicd-runner:test --config tests/structure-test.yaml
