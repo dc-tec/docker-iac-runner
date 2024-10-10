@@ -1,0 +1,22 @@
+schemaVersion: '2.0.0'
+commandTests:
+  - name: "Terraform version"
+    command: "terraform"
+    args: ["--version"]
+    expectedOutput: ["Terraform v1.9.7"]
+  - name: "OpenTofu version"
+    command: "tofu"
+    args: ["--version"]
+    expectedOutput: ["OpenTofu v1.8.3"]
+  - name: "Ansible version"
+    command: "ansible"
+    args: ["--version"]
+    expectedOutput: ["ansible [core 2.17.5]"]
+  - name: "Pulumi version"
+    command: "pulumi"
+    args: ["version"]
+    expectedOutput: ["v3.136.1"]
+  - name: "AWS CLI version"
+    command: "aws"
+    args: ["--version"]
+    expectedOutput: ["aws-cli/2.18.0"]
