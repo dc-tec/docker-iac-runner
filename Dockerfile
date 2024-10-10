@@ -3,6 +3,11 @@ FROM alpine:3.20
 LABEL maintainer="Roel de Cort"
 LABEL version="0.1.0"
 
+LABEL org.opencontainers.image.source="https://github.com/roelde/devops-cicd-runner"
+LABEL org.opencontainers.image.description="A Docker image for running IAC tools CI/CD pipelines."
+LABEL org.opencontainers.image.licenses="MIT"
+
+
 # Tool versions
 # renovate: datasource=github-releases depName=tofuutils/tenv
 ENV TENV_VERSION=v3.2.4
