@@ -7,7 +7,6 @@ LABEL org.opencontainers.image.source="https://github.com/roelde/devops-cicd-run
 LABEL org.opencontainers.image.description="A Docker image for running IAC tools CI/CD pipelines."
 LABEL org.opencontainers.image.licenses="MIT"
 
-
 # Tool versions
 # renovate: datasource=github-releases depName=tofuutils/tenv
 ENV TENV_VERSION=v3.2.4

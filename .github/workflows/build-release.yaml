@@ -3,16 +3,22 @@ name: Build, Push, and Release
 on:
   push:
     branches: [ main ]
-  release:
-    types: [created]
 
 jobs:
-  build-push-release:
+  release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+
+    - name: Install dependencies
+      run: npm ci
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -24,14 +30,14 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Get version
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npx semantic-release
+
+    - name: Get the version
       id: get_version
-      run: |
-        if [[ ${{ github.event_name }} == 'release' ]]; then
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-        else
-          echo "VERSION=$(git describe --tags --abbrev=0 | awk -F. '{OFS="."; $NF+=1; print $0}')" >> $GITHUB_OUTPUT
-        fi
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
     - name: Build and push
       uses: docker/build-push-action@v5
@@ -43,14 +49,3 @@ jobs:
           ghcr.io/${{ github.repository }}:${{ steps.get_version.outputs.VERSION }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-
-    - name: Create Release
-      if: github.event_name != 'release'
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: Release ${{ steps.get_version.outputs.VERSION }}
-        draft: false
-        prerelease: false
