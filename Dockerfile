@@ -17,7 +17,7 @@ ENV OPENTOFU_VERSION=1.8.3
 # renovate: datasource=github-releases depName=pulumi/pulumi
 ENV PULUMI_VERSION=v3.136.1
 # renovate: datasource=repology depName=alpine_3_20/aws-cli versioning=loose
-ENV AWS_CLI_VERSION=2.18.0-r0
+ENV AWS_CLI_VERSION=2.18.4-r0
 # renovate: datasource=repology depName=alpine_3_20/ansible versioning=loose
 ENV ANSIBLE_VERSION=10.5.0-r0
 # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
