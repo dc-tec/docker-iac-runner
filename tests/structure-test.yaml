@@ -19,4 +19,4 @@ commandTests:
   - name: "AWS CLI version"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.18.0"]
+    expectedOutput: ["aws-cli/2.18.4"]
