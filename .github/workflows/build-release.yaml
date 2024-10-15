@@ -3,6 +3,7 @@ name: Build, Push, and Release
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   release:
@@ -17,8 +18,8 @@ jobs:
       with:
         node-version: 'lts/*'
 
-    - name: Install dependencies
-      run: npm ci
+    - name: Install semantic-release
+      run: npm install --no-package-lock semantic-release @semantic-release/github
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -40,7 +41,12 @@ jobs:
 
     - name: Get the version
       id: get_version
-      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      run: |
+        if [ -n "${{ github.ref_name }}" ] && [[ "${{ github.ref_name }}" == v* ]]; then
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        else
+          echo "VERSION=$(git describe --tags --abbrev=0 || echo v0.1.0)" >> $GITHUB_OUTPUT
+        fi
 
     - name: Build and push
       uses: docker/build-push-action@v5
